@@ -6,7 +6,14 @@ public class Main {
     public static void main(String[] args) throws AWTException {
 
         DrawShapeScript shape = new DrawShapeScript();
-        shape.drawCircle_Game(365, 1);
+        int sideLength = 485;
+        //shape.drawCircle_Game(365, 5);
+        //shape.drawRectangle_Game(sideLength, sideLength, 15);
+
+        //shape.drawParabola_Paint();
+
+        shape.drawHeart_Paint(10);
+
 
 
 
