@@ -158,6 +158,7 @@ public class DrawShapeScript {
         int x = 0;
         int y = 0;
 
+
         robot.delay(3000);
 
         robot.mouseMove(xSet + radius, ySet);

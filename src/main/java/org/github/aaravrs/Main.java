@@ -12,7 +12,7 @@ public class Main {
 
         //shape.drawParabola_Paint();
 
-        shape.drawHeart_Paint(10);
+        //shape.drawHeart_Paint(10);
 
 
 
