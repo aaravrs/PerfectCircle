@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) throws AWTException {
 
         DrawShapeScript shape = new DrawShapeScript();
-        shape.drawCircle();
+        shape.drawCircle_Game(365, 1);
 
 
 

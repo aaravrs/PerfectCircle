@@ -7,10 +7,10 @@ import java.io.IOException;
 public class DrawShapeScript {
 
     private Robot robot;
-    private Runtime runtime;
+    private final Runtime runtime;
 
-    private final int xSet = 600;
-    private final int ySet = 400;
+    private final int xSet = (int) Math.round(960 / 1.25);
+    private final int ySet = (int) Math.round(620 / 1.25);
 
     public DrawShapeScript() {
         try {
@@ -22,7 +22,7 @@ public class DrawShapeScript {
         runtime = Runtime.getRuntime();
     }
 
-    public void drawSine() {
+    public void drawSine_Paint() {
         int x = 0;
         int y = 0;
         double alpha = 0;
@@ -51,36 +51,60 @@ public class DrawShapeScript {
 
     }
 
-    public void drawCircle() {
+    public void drawCircle_Paint() {
         int x = 0;
         int y = 0;
 
-        int r = 30;
-        double theta = 0; // angle from positive x-axis radians
+        int r = 300;
 
         runMSPaint();
 
         robot.delay(1200);
 
-        robot.mouseMove(xSet , ySet);
+        robot.mouseMove(xSet + r, ySet);
         leftClick();
-
-        int xVal = x + xSet;
-        int yVal = y + ySet;
 
         robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
 
-        for(int i = 0; i < 360; i++) { // i = angle in degrees
-            robot.mouseMove(x + xSet, y + ySet);
-            // Circle draws clockwise due to y being a flipped axis (top of screen is y = 0, bottom is max y)
-
+        for(int i = 0; i < 375; i++) { // i = angle in degrees // max = 375 to account for inaccuracies near the end due to rounding
 
             // Polar coordinates to determine x and y
-            theta = i * Math.PI / 180.0; // angle in radians
+            double theta = i * Math.PI / 180.0; // angle from positive x-axis radians
             x = (int) Math.round(r * Math.cos(theta));
             y = (int) Math.round(r * Math.sin(theta));
 
+            robot.mouseMove(x + xSet, (-1) * y + ySet);
+            // Circle draws clockwise due to y being a flipped axis (top of screen is y = 0, bottom is max y)
+            // So we use (-y) to account for this to go counter-clockwise
+
             robot.delay(2);
+        }
+        // robot.mouseMove(xSet, ySet);
+        // robot.delay(1);
+        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+
+    }
+
+
+    public void drawCircle_Game(int radius, int delay_ms) {
+        int x = 0;
+        int y = 0;
+
+        robot.delay(3000);
+
+        robot.mouseMove(xSet + radius, ySet);
+        leftClick();
+
+        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+
+        for(int i = 0; i < 360; i++) {
+
+            double theta = i * Math.PI / 180.0;
+            x = (int) Math.round( radius * Math.cos(theta) );
+            y = (int) Math.round( radius * Math.sin(theta) );
+
+            robot.mouseMove(x + xSet, (-1) * y + ySet);
+            robot.delay(delay_ms);
         }
 
         robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
